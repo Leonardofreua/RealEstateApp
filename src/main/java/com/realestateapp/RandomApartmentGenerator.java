@@ -13,7 +13,7 @@ public class RandomApartmentGenerator {
 	public RandomApartmentGenerator() {
 		super();
 		this.minArea = 30.0;
-		this.minPricePerSquareMeter = new BigDecimal(3000.0);
+		this.minPricePerSquareMeter = BigDecimal.valueOf(3000.0);
 	}
 
 	public RandomApartmentGenerator(double minArea, BigDecimal minPricePerSquareMeter) {
@@ -24,12 +24,12 @@ public class RandomApartmentGenerator {
 
 	public Apartment generate() {
 		double maxArea = minArea * MAX_MULTIPLIER;
-		BigDecimal maxPricePerSquareMeter = minPricePerSquareMeter.multiply(new BigDecimal(MAX_MULTIPLIER));
+		BigDecimal maxPricePerSquareMeter = minPricePerSquareMeter.multiply(BigDecimal.valueOf(MAX_MULTIPLIER));
 
 		double area = Math.round((minArea + Math.random() * (maxArea - minArea)) * 10) / 10;
 		BigDecimal pricePerSquareMeter = minPricePerSquareMeter
-				.add((new BigDecimal(Math.random()).multiply(maxPricePerSquareMeter.subtract(minPricePerSquareMeter))));
-		BigDecimal price = pricePerSquareMeter.multiply(new BigDecimal(area)).setScale(1, RoundingMode.FLOOR);
+				.add((BigDecimal.valueOf(Math.random()).multiply(maxPricePerSquareMeter.subtract(minPricePerSquareMeter))));
+		BigDecimal price = pricePerSquareMeter.multiply(BigDecimal.valueOf(area)).setScale(1, RoundingMode.FLOOR);
 		return new Apartment(area, price);
 	}
 }
